@@ -1,0 +1,19 @@
+{
+  "grammars": [
+    {
+      "name": "gsc",
+      "scope": "source.gsc",
+      "file-types": ["gsc", "csc", "gsh"],
+      "path": ".",
+      "external-files": [],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "locals": "queries/locals.scm"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for GSC (Call of Duty scripting language)"
+  }
+}
