@@ -39,6 +39,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "var_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "return_statement"
         },
         {
@@ -56,6 +60,18 @@
         {
           "type": "SYMBOL",
           "name": "waittill_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "waittillframeend_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dev_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "doc_comment"
         },
         {
           "type": "SYMBOL",
@@ -770,6 +786,44 @@
         }
       ]
     },
+    "var_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "var"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "="
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
     "if_statement": {
       "type": "SEQ",
       "members": [
@@ -1202,16 +1256,37 @@
             {
               "type": "STRING",
               "value": "waitrealtime"
-            },
-            {
-              "type": "STRING",
-              "value": "waittillframeend"
             }
           ]
         },
         {
           "type": "SYMBOL",
           "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "waittillframeend_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "waittillframeend"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -1485,11 +1560,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "anim_identifier"
         },
         {
           "type": "SYMBOL",
-          "name": "anim_identifier"
+          "name": "identifier"
         },
         {
           "type": "SYMBOL",
@@ -2674,6 +2749,59 @@
           }
         ]
       }
+    },
+    "dev_block": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "/#"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^#]*#*([^#\\/][^#]*#*)*"
+              },
+              {
+                "type": "STRING",
+                "value": "#/"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "/#"
+          },
+          {
+            "type": "STRING",
+            "value": "#/"
+          }
+        ]
+      }
+    },
+    "doc_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "/@"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^@]*@*([^@\\/][^@]*@*)*"
+          },
+          {
+            "type": "STRING",
+            "value": "@/"
+          }
+        ]
+      }
     }
   },
   "extras": [
@@ -2684,6 +2812,14 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "dev_block"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "doc_comment"
     }
   ],
   "conflicts": [
