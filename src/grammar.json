@@ -2823,14 +2823,8 @@
     }
   ],
   "conflicts": [
-    [
-      "new_expression",
-      "call_expression"
-    ],
-    [
-      "_expression",
-      "assignment_expression"
-    ]
+    ["new_expression", "call_expression"],
+    ["_expression", "assignment_expression"]
   ],
   "precedences": [],
   "externals": [],
