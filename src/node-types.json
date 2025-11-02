@@ -8,6 +8,14 @@
       "required": false,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -36,11 +44,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -95,6 +111,14 @@
       "required": false,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -123,11 +147,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -182,6 +214,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -210,11 +250,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -314,6 +362,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -342,11 +398,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -402,6 +466,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -430,11 +502,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -494,6 +574,10 @@
         },
         {
           "type": "class_definition",
+          "named": true
+        },
+        {
+          "type": "const_statement",
           "named": true
         },
         {
@@ -593,6 +677,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -621,11 +713,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -681,6 +781,10 @@
         },
         {
           "type": "class_definition",
+          "named": true
+        },
+        {
+          "type": "const_statement",
           "named": true
         },
         {
@@ -786,6 +890,120 @@
     }
   },
   {
+    "type": "const_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
+            "type": "array_literal",
+            "named": true
+          },
+          {
+            "type": "assignment_expression",
+            "named": true
+          },
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "boolean_literal",
+            "named": true
+          },
+          {
+            "type": "builtin_variable",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "function_pointer",
+            "named": true
+          },
+          {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
+            "named": true
+          },
+          {
+            "type": "member_expression",
+            "named": true
+          },
+          {
+            "type": "new_expression",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "ternary_expression",
+            "named": true
+          },
+          {
+            "type": "thread_expression",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "undefined_literal",
+            "named": true
+          },
+          {
+            "type": "update_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "constructor_definition",
     "named": true,
     "fields": {
@@ -876,6 +1094,10 @@
           "named": true
         },
         {
+          "type": "const_statement",
+          "named": true
+        },
+        {
           "type": "control_statement",
           "named": true
         },
@@ -959,6 +1181,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -987,11 +1217,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1057,6 +1295,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -1085,11 +1331,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1145,6 +1399,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -1173,11 +1435,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -1242,6 +1512,14 @@
         "required": false,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -1270,11 +1548,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1324,6 +1610,14 @@
         "required": false,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -1352,11 +1646,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1410,6 +1712,14 @@
         "required": false,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -1438,11 +1748,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1508,6 +1826,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -1536,11 +1862,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1663,6 +1997,21 @@
     }
   },
   {
+    "type": "hash_string_literal",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -1680,6 +2029,14 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
           {
             "type": "array_literal",
             "named": true
@@ -1709,11 +2066,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -1779,6 +2144,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -1807,11 +2180,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -1858,7 +2239,7 @@
     }
   },
   {
-    "type": "macro_parameter_list",
+    "type": "istring_literal",
     "named": true,
     "fields": {},
     "children": {
@@ -1866,11 +2247,16 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "escape_sequence",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "macro_body",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "member_expression",
@@ -1880,6 +2266,14 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
           {
             "type": "array_literal",
             "named": true
@@ -1909,11 +2303,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -2041,6 +2443,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -2069,11 +2479,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -2124,6 +2542,14 @@
       "required": false,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -2152,11 +2578,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -2211,6 +2645,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -2239,11 +2681,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -2332,6 +2782,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -2360,11 +2818,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -2419,6 +2885,14 @@
       "required": false,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -2447,11 +2921,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -2507,6 +2989,16 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "macro_body",
             "named": true
           }
         ]
@@ -2649,6 +3141,14 @@
       "required": false,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -2677,11 +3177,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -2742,6 +3250,10 @@
         },
         {
           "type": "class_definition",
+          "named": true
+        },
+        {
+          "type": "const_statement",
           "named": true
         },
         {
@@ -2807,6 +3319,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -2835,11 +3355,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -2909,6 +3437,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -2937,11 +3473,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -2991,6 +3535,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -3019,11 +3571,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -3073,6 +3633,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -3101,11 +3669,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -3176,6 +3752,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -3204,11 +3788,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -3263,6 +3855,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -3291,11 +3891,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -3350,6 +3958,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -3378,11 +3994,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -3437,6 +4061,14 @@
       "required": true,
       "types": [
         {
+          "type": "anim_identifier",
+          "named": true
+        },
+        {
+          "type": "animtree_literal",
+          "named": true
+        },
+        {
           "type": "array_literal",
           "named": true
         },
@@ -3465,11 +4097,19 @@
           "named": true
         },
         {
+          "type": "hash_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
           "type": "isdefined_expression",
+          "named": true
+        },
+        {
+          "type": "istring_literal",
           "named": true
         },
         {
@@ -3534,6 +4174,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -3562,11 +4210,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -3642,6 +4298,14 @@
         "required": true,
         "types": [
           {
+            "type": "anim_identifier",
+            "named": true
+          },
+          {
+            "type": "animtree_literal",
+            "named": true
+          },
+          {
             "type": "array_literal",
             "named": true
           },
@@ -3670,11 +4334,19 @@
             "named": true
           },
           {
+            "type": "hash_string_literal",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           },
           {
             "type": "isdefined_expression",
+            "named": true
+          },
+          {
+            "type": "istring_literal",
             "named": true
           },
           {
@@ -3738,6 +4410,10 @@
     "named": false
   },
   {
+    "type": "#\"",
+    "named": false
+  },
+  {
     "type": "#define",
     "named": false
   },
@@ -3787,6 +4463,10 @@
   },
   {
     "type": "&",
+    "named": false
+  },
+  {
+    "type": "&\"",
     "named": false
   },
   {
@@ -3922,6 +4602,10 @@
     "named": false
   },
   {
+    "type": "\\",
+    "named": false
+  },
+  {
     "type": "]",
     "named": false
   },
@@ -3936,6 +4620,14 @@
   {
     "type": "anim",
     "named": false
+  },
+  {
+    "type": "anim_identifier",
+    "named": true
+  },
+  {
+    "type": "animtree_literal",
+    "named": true
   },
   {
     "type": "autoexec",
@@ -3957,6 +4649,10 @@
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "const",
+    "named": false
   },
   {
     "type": "constructor",
@@ -4031,6 +4727,10 @@
     "named": false
   },
   {
+    "type": "macro_parameter_list",
+    "named": true
+  },
+  {
     "type": "new",
     "named": false
   },
@@ -4080,11 +4780,11 @@
   },
   {
     "type": "vararg",
-    "named": false
+    "named": true
   },
   {
     "type": "vararg",
-    "named": true
+    "named": false
   },
   {
     "type": "wait",

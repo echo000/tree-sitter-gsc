@@ -25,6 +25,7 @@ module.exports = grammar({
         $.class_definition,
         $.expression_statement,
         $.control_statement,
+        $.const_statement,
         $.return_statement,
         $.wait_statement,
         $.notify_statement,
@@ -60,14 +61,19 @@ module.exports = grammar({
         "#define",
         field("name", $.identifier),
         optional($.macro_parameter_list),
-        field("value", optional($._macro_body)),
-        /\n/,
+        field("value", optional($.macro_body)),
+        /\r?\n/,
       ),
 
-    macro_parameter_list: ($) =>
-      seq("(", optional(commaSep1($.identifier)), ")"),
+    macro_parameter_list: ($) => token(seq("(", /[^)]*/, ")")),
 
-    _macro_body: ($) => /[^\n]+/,
+    macro_body: ($) =>
+      repeat1(
+        choice(
+          /[^\\\n]+/,
+          seq("\\", /\r?\n/), // line continuation
+        ),
+      ),
 
     preprocessor_precache: ($) =>
       seq("#precache", "(", $.string_literal, ",", $.string_literal, ")", ";"),
@@ -160,6 +166,15 @@ module.exports = grammar({
         $.continue_statement,
       ),
 
+    const_statement: ($) =>
+      seq(
+        "const",
+        field("name", $.identifier),
+        "=",
+        field("value", $._expression),
+        ";",
+      ),
+
     if_statement: ($) =>
       seq(
         "if",
@@ -242,7 +257,11 @@ module.exports = grammar({
     return_statement: ($) => seq("return", optional($._expression), ";"),
 
     wait_statement: ($) =>
-      seq(choice("wait", "waitrealtime"), $._expression, ";"),
+      seq(
+        choice("wait", "waitrealtime", "waittillframeend"),
+        $._expression,
+        ";",
+      ),
 
     notify_statement: ($) =>
       seq(
@@ -268,7 +287,7 @@ module.exports = grammar({
     waittill_statement: ($) =>
       seq(
         field("object", $._expression),
-        choice("waittill", "waittillmatch", "waittillframeend"),
+        choice("waittill", "waittillmatch"),
         "(",
         field("event", $.string_literal),
         optional(seq(",", commaSep1($.identifier))),
@@ -284,10 +303,14 @@ module.exports = grammar({
     _expression: ($) =>
       choice(
         $.identifier,
+        $.anim_identifier,
         $.number,
         $.string_literal,
+        $.istring_literal,
+        $.hash_string_literal,
         $.boolean_literal,
         $.undefined_literal,
+        $.animtree_literal,
         $.array_literal,
         $.parenthesized_expression,
         $.binary_expression,
@@ -431,8 +454,11 @@ module.exports = grammar({
 
     boolean_literal: ($) => choice("true", "false"),
     undefined_literal: ($) => "undefined",
+    animtree_literal: ($) => "#animtree",
 
     identifier: ($) => /[a-zA-Z_$][a-zA-Z0-9_$]*/,
+
+    anim_identifier: ($) => token(seq("%", /[a-zA-Z_][a-zA-Z0-9_]*/)),
 
     number: ($) =>
       token(
@@ -445,6 +471,24 @@ module.exports = grammar({
     string_literal: ($) =>
       seq(
         '"',
+        repeat(
+          choice(token.immediate(prec(1, /[^"\\\n]+/)), $.escape_sequence),
+        ),
+        '"',
+      ),
+
+    istring_literal: ($) =>
+      seq(
+        '&"',
+        repeat(
+          choice(token.immediate(prec(1, /[^"\\\n]+/)), $.escape_sequence),
+        ),
+        '"',
+      ),
+
+    hash_string_literal: ($) =>
+      seq(
+        '#"',
         repeat(
           choice(token.immediate(prec(1, /[^"\\\n]+/)), $.escape_sequence),
         ),

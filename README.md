@@ -1,6 +1,6 @@
-# Tree-sitter Grammar for GSC (Game Script Code)
+# Tree-sitter Grammar for GSC
 
-A tree-sitter grammar for GSC (Game Script Code) and CSC (Client Script Code) - the scripting languages used in Call of Duty: Black Ops III.
+A tree-sitter grammar for GSC and CSC - the scripting languages used in Call of Duty: Black Ops III.
 
 ## Status
 
@@ -141,7 +141,7 @@ function private init_players()
 class MyClass : BaseClass
 {
     var member_var;
-    
+
     constructor(param)
     {
         self.member_var = param;
