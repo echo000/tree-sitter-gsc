@@ -6,7 +6,7 @@
 module.exports = grammar({
   name: "gsc",
 
-  extras: ($) => [/\s/, $.comment],
+  extras: ($) => [/\s/, $.comment, $.dev_block, $.doc_comment],
 
   word: ($) => $.identifier,
 
@@ -26,11 +26,15 @@ module.exports = grammar({
         $.expression_statement,
         $.control_statement,
         $.const_statement,
+        $.var_statement,
         $.return_statement,
         $.wait_statement,
         $.notify_statement,
         $.endon_statement,
         $.waittill_statement,
+        $.waittillframeend_statement,
+        $.dev_block,
+        $.doc_comment,
         $.block,
         ";",
       ),
@@ -175,6 +179,9 @@ module.exports = grammar({
         ";",
       ),
 
+    var_statement: ($) =>
+      seq("var", $.identifier, optional(seq("=", $._expression)), ";"),
+
     if_statement: ($) =>
       seq(
         "if",
@@ -257,11 +264,10 @@ module.exports = grammar({
     return_statement: ($) => seq("return", optional($._expression), ";"),
 
     wait_statement: ($) =>
-      seq(
-        choice("wait", "waitrealtime", "waittillframeend"),
-        $._expression,
-        ";",
-      ),
+      seq(choice("wait", "waitrealtime"), $._expression, ";"),
+
+    waittillframeend_statement: ($) =>
+      seq("waittillframeend", optional($._expression), ";"),
 
     notify_statement: ($) =>
       seq(
@@ -302,8 +308,8 @@ module.exports = grammar({
     // Expressions
     _expression: ($) =>
       choice(
-        $.identifier,
         $.anim_identifier,
+        $.identifier,
         $.number,
         $.string_literal,
         $.istring_literal,
@@ -503,6 +509,13 @@ module.exports = grammar({
       token(
         choice(seq("//", /.*/), seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
       ),
+
+    // Dev blocks
+    dev_block: ($) =>
+      token(choice(seq("/#", /[^#]*#*([^#\/][^#]*#*)*/, "#/"), "/#", "#/")),
+
+    // Documentation comments
+    doc_comment: ($) => token(seq("/@", /[^@]*@*([^@\/][^@]*@*)*/, "@/")),
   },
 });
 
