@@ -16,6 +16,7 @@ module.exports = grammar({
     [$.subscript_expression, $.array_literal],
     [$.pointer_call_expression, $.call_expression],
     [$.vector_literal, $.parenthesized_expression],
+    [$.function_dereference, $.subscript_expression],
   ],
 
   rules: {
@@ -83,7 +84,7 @@ module.exports = grammar({
       ),
 
     preprocessor_precache: ($) =>
-      seq("#precache", "(", $.string_literal, ",", $.string_literal, ")", ";"),
+      seq("#precache", "(", commaSep1($._expression), ")", ";"),
 
     preprocessor_using_animtree: ($) =>
       seq("#using_animtree", "(", $.string_literal, ")", ";"),
@@ -186,14 +187,14 @@ module.exports = grammar({
       seq("var", $.identifier, optional(seq("=", $._expression)), ";"),
 
     if_statement: ($) =>
-      seq(
-        "if",
-        "(",
-        field("condition", $._expression),
-        ")",
-        field("consequence", $.block),
-        optional(
-          seq("else", field("alternative", choice($.block, $.if_statement))),
+      prec.right(
+        seq(
+          "if",
+          "(",
+          field("condition", $._expression),
+          ")",
+          field("consequence", $._statement),
+          optional(seq("else", field("alternative", $._statement))),
         ),
       ),
 
@@ -203,7 +204,7 @@ module.exports = grammar({
         "(",
         field("condition", $._expression),
         ")",
-        field("body", $.block),
+        field("body", $._statement),
       ),
 
     do_while_statement: ($) =>
@@ -211,7 +212,7 @@ module.exports = grammar({
         1,
         seq(
           "do",
-          field("body", $.block),
+          field("body", $._statement),
           "while",
           "(",
           field("condition", $._expression),
@@ -233,7 +234,7 @@ module.exports = grammar({
         ";",
         field("update", optional($._expression)),
         ")",
-        field("body", $.block),
+        field("body", $._statement),
       ),
 
     foreach_statement: ($) =>
@@ -244,7 +245,7 @@ module.exports = grammar({
         "in",
         field("collection", $._expression),
         ")",
-        field("body", $.block),
+        field("body", $._statement),
       ),
 
     switch_statement: ($) =>
@@ -306,7 +307,7 @@ module.exports = grammar({
         ";",
       ),
 
-    expression_statement: ($) => seq($._expression, ";"),
+    expression_statement: ($) => prec.right(seq($._expression, optional(";"))),
 
     block: ($) => seq("{", repeat($._statement), "}"),
 
@@ -405,7 +406,12 @@ module.exports = grammar({
         seq(
           field(
             "function",
-            choice($.identifier, $.namespace_call, $.member_expression),
+            choice(
+              $.identifier,
+              $.namespace_call,
+              $.member_expression,
+              $.function_dereference,
+            ),
           ),
           field("arguments", $.argument_list),
         ),
@@ -443,13 +449,16 @@ module.exports = grammar({
       ),
 
     subscript_expression: ($) =>
-      prec(
-        14,
-        seq(
-          field("object", $._expression),
-          "[",
-          field("index", $._expression),
-          "]",
+      prec.dynamic(
+        0,
+        prec(
+          14,
+          seq(
+            field("object", $._expression),
+            "[",
+            field("index", $._expression),
+            "]",
+          ),
         ),
       ),
 
@@ -465,7 +474,19 @@ module.exports = grammar({
       seq("&", optional(seq($.identifier, "::")), $.identifier),
 
     function_dereference: ($) =>
-      seq("[[", field("function", $._expression), "]]"),
+      choice(
+        // Without spaces: [[expr]]
+        prec.dynamic(
+          2,
+          seq(
+            token(prec(2, "[[")),
+            field("function", $._expression),
+            token(prec(2, "]]")),
+          ),
+        ),
+        // With spaces: [ [ expr ] ] - must have higher precedence than array_literal
+        prec(20, seq("[", "[", field("function", $._expression), "]", "]")),
+      ),
 
     ternary_expression: ($) =>
       prec.right(
@@ -509,7 +530,7 @@ module.exports = grammar({
 
     // Literals and identifiers
     builtin_variable: ($) =>
-      choice("self", "level", "game", "world", "anim", "vararg"),
+      choice("self", "level", "game", "world", "anim", "classes", "vararg"),
 
     boolean_literal: ($) => choice("true", "false"),
     undefined_literal: ($) => "undefined",
@@ -526,7 +547,8 @@ module.exports = grammar({
       token(
         choice(
           /0[xX][0-9a-fA-F]+/, // hex
-          /\d+\.?\d*([eE][+-]?\d+)?/, // decimal/float
+          /\d+\.?\d*([eE][+-]?\d+)?/, // decimal/float with leading digits
+          /\.\d+([eE][+-]?\d+)?/, // decimal starting with dot like .5
         ),
       ),
 
