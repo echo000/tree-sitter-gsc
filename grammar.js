@@ -13,6 +13,9 @@ module.exports = grammar({
   conflicts: ($) => [
     [$.new_expression, $.call_expression],
     [$._expression, $.assignment_expression],
+    [$.subscript_expression, $.array_literal],
+    [$.pointer_call_expression, $.call_expression],
+    [$.vector_literal, $.parenthesized_expression],
   ],
 
   rules: {
@@ -189,7 +192,9 @@ module.exports = grammar({
         field("condition", $._expression),
         ")",
         field("consequence", $.block),
-        optional(seq("else", field("alternative", $.block))),
+        optional(
+          seq("else", field("alternative", choice($.block, $.if_statement))),
+        ),
       ),
 
     while_statement: ($) =>
@@ -274,7 +279,7 @@ module.exports = grammar({
         field("object", $._expression),
         "notify",
         "(",
-        field("event", $.string_literal),
+        field("event", $._expression),
         optional(seq(",", commaSep1($._expression))),
         ")",
         ";",
@@ -285,7 +290,7 @@ module.exports = grammar({
         field("object", $._expression),
         "endon",
         "(",
-        field("event", $.string_literal),
+        field("event", $._expression),
         ")",
         ";",
       ),
@@ -295,7 +300,7 @@ module.exports = grammar({
         field("object", $._expression),
         choice("waittill", "waittillmatch"),
         "(",
-        field("event", $.string_literal),
+        field("event", $._expression),
         optional(seq(",", commaSep1($.identifier))),
         ")",
         ";",
@@ -308,6 +313,7 @@ module.exports = grammar({
     // Expressions
     _expression: ($) =>
       choice(
+        $.anim_reference,
         $.anim_identifier,
         $.identifier,
         $.number,
@@ -318,15 +324,19 @@ module.exports = grammar({
         $.undefined_literal,
         $.animtree_literal,
         $.array_literal,
+        $.vector_literal,
         $.parenthesized_expression,
         $.binary_expression,
         $.unary_expression,
         $.assignment_expression,
         $.update_expression,
         $.call_expression,
+        $.pointer_call_expression,
         $.member_expression,
+        $.subscript_expression,
         $.thread_expression,
         $.function_pointer,
+        $.function_dereference,
         $.ternary_expression,
         $.new_expression,
         $.isdefined_expression,
@@ -401,6 +411,20 @@ module.exports = grammar({
         ),
       ),
 
+    pointer_call_expression: ($) =>
+      prec(
+        13,
+        seq(
+          field("object", $._expression),
+          optional("thread"),
+          field(
+            "function",
+            choice($.identifier, $.namespace_call, $.function_dereference),
+          ),
+          field("arguments", $.argument_list),
+        ),
+      ),
+
     namespace_call: ($) =>
       seq(
         field("namespace", $.identifier),
@@ -418,12 +442,30 @@ module.exports = grammar({
         ),
       ),
 
+    subscript_expression: ($) =>
+      prec(
+        14,
+        seq(
+          field("object", $._expression),
+          "[",
+          field("index", $._expression),
+          "]",
+        ),
+      ),
+
     argument_list: ($) => seq("(", optional(commaSep1($._expression)), ")"),
 
-    thread_expression: ($) => prec(15, seq("thread", $.call_expression)),
+    thread_expression: ($) =>
+      prec(
+        15,
+        seq("thread", choice($.call_expression, $.pointer_call_expression)),
+      ),
 
     function_pointer: ($) =>
       seq("&", optional(seq($.identifier, "::")), $.identifier),
+
+    function_dereference: ($) =>
+      seq("[[", field("function", $._expression), "]]"),
 
     ternary_expression: ($) =>
       prec.right(
@@ -451,6 +493,17 @@ module.exports = grammar({
 
     array_literal: ($) => seq("[", optional(commaSep1($._expression)), "]"),
 
+    vector_literal: ($) =>
+      seq(
+        "(",
+        field("x", $._expression),
+        ",",
+        field("y", $._expression),
+        ",",
+        field("z", $._expression),
+        ")",
+      ),
+
     // Preprocessor path (bare path without quotes)
     preprocessor_path: ($) => /[^\s;]+/,
 
@@ -465,6 +518,9 @@ module.exports = grammar({
     identifier: ($) => /[a-zA-Z_$][a-zA-Z0-9_$]*/,
 
     anim_identifier: ($) => token(seq("%", /[a-zA-Z_][a-zA-Z0-9_]*/)),
+
+    anim_reference: ($) =>
+      seq($.anim_identifier, "::", field("animation", $.identifier)),
 
     number: ($) =>
       token(
