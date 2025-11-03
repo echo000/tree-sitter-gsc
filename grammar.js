@@ -321,6 +321,7 @@ module.exports = grammar({
         $.string_literal,
         $.istring_literal,
         $.hash_string_literal,
+        $.localized_string_literal,
         $.boolean_literal,
         $.undefined_literal,
         $.animtree_literal,
@@ -579,8 +580,19 @@ module.exports = grammar({
         '"',
       ),
 
+    localized_string_literal: ($) =>
+      seq(
+        '@"',
+        repeat(
+          choice(token.immediate(prec(1, /[^"\\\n]+/)), $.escape_sequence),
+        ),
+        '"',
+      ),
+
     escape_sequence: ($) =>
       token.immediate(seq("\\", choice("r", "n", "t", "\\", '"'))),
+
+    line_continuation: ($) => token(seq("\\", /\r?\n/)),
 
     // Comments
     comment: ($) =>
@@ -592,8 +604,48 @@ module.exports = grammar({
     dev_block: ($) =>
       token(choice(seq("/#", /[^#]*#*([^#\/][^#]*#*)*/, "#/"), "/#", "#/")),
 
-    // Documentation comments
-    doc_comment: ($) => token(seq("/@", /[^@]*@*([^@\/][^@]*@*)*/, "@/")),
+    // Documentation comments with internal syntax
+    doc_comment: ($) =>
+      seq(
+        "/@",
+        repeat(
+          choice(
+            $.doc_type,
+            $.doc_param_marker,
+            $.doc_gscode_directive,
+            $.doc_text,
+          ),
+        ),
+        "@/",
+      ),
+
+    doc_type: ($) =>
+      token(
+        choice(
+          "void",
+          "bool",
+          "int",
+          "float",
+          "vec3",
+          "string",
+          "entity",
+          "struct",
+          "object",
+          "array",
+        ),
+      ),
+
+    doc_param_marker: ($) =>
+      choice(seq("<", /[^>]+/, ">"), seq("[", /[^\]]+/, "]")),
+
+    doc_gscode_directive: ($) =>
+      seq(
+        "gscode",
+        choice("types", "nameInference", "enable", "disable"),
+        optional(choice("enable", "disable")),
+      ),
+
+    doc_text: ($) => token(prec(-1, /[^@<>\[\]]+/)),
   },
 });
 
